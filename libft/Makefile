@@ -6,15 +6,18 @@
 #    By: mwilk <mwilk@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/09 16:17:56 by mwilk             #+#    #+#              #
-#    Updated: 2015/01/04 16:35:36 by mwilk            ###   ########.fr        #
+#    Updated: 2015/01/06 19:29:57 by mwilk            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = libft.a
 
-CC = cc
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
+INC_PATH = includes/
+OBJ_PATH = obj/
+OBJ = $(SRC:.c=.o)
 SRC = ft_atoi.c \
 	  ft_bzero.c \
 	  ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isblank.c ft_isdigit.c \
@@ -37,24 +40,24 @@ SRC = ft_atoi.c \
 	  ft_strtrim.c \
 	  ft_tolower.c ft_toupper.c \
 
-# No Wildcards? Let's use a macro.
-OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
 $(NAME):
-	@$(CC) $(CFLAGS) -c $(SRC)
+	@$(CC) $(CFLAGS) -c $(SRC) -I $(INC_PATH)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@echo "\033[32mBuilt library.\033[0m"
+	@mkdir $(OBJ_PATH)
+	@mv $(OBJ) $(OBJ_PATH)
+	@echo "\033[35m <(^.^<) WOW ! Such Library ! Amaze ! (>^o^)> \033[0m"
 
 clean:
-	@/bin/rm -f $(OBJ)
-	@echo "\033[32mCleaned up object files.\033[0m"
+	@/bin/rm -rf $(OBJ_PATH)
+	@echo "\033[36mT.T Miss you object files T.T \033[0m"
 
 fclean: clean
 	@/bin/rm $(NAME)
-	@echo "\033[32mCleaned up compiled files.\033[0m"
+	@echo "\033[36m X.x Bye Bye compiled files >_< \033[0m"
 
 re: fclean all
 
