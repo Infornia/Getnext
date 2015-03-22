@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mwilk <mwilk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/06 15:42:11 by mwilk             #+#    #+#             */
-/*   Updated: 2015/01/06 18:57:21 by mwilk            ###   ########.fr       */
+/*   Created: 2014/11/10 14:22:41 by mwilk             #+#    #+#             */
+/*   Updated: 2014/11/10 15:08:49 by mwilk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_realloc(void *ptr, size_t old, size_t size)
+char	*ft_strjoin(const char *s1, const char *s2)
 {
-	void	*to_ret;
+	char	*str;
+	size_t	size;
 
-	if (ptr == NULL)
+	if (s1 == NULL || s2 == NULL)
 		return (NULL);
-	if (size == 0)
-		to_ret = (void *)ft_memalloc(sizeof(char));
-	else
-		to_ret = (void *)ft_memalloc(size);
-	if (to_ret == NULL)
+	size = ft_strlen(s1) + ft_strlen(s2);
+	str = (char *)malloc(sizeof(char) * (size + 1));
+	if (str == NULL)
 		return (NULL);
-	ft_bzero (to_ret, (size) ? size : sizeof(char));
-	if (old > size)
-		ft_memcpy(to_ret, ptr, (size) ? size : sizeof(char));
-	else
-		ft_memcpy(to_ret, ptr, old);
-	ft_memdel((void *)&ptr);
-	return (to_ret);
+	ft_strcpy(str, s1);
+	ft_strcat(str, s2);
+	str[size] = '\0';
+	return (str);
 }

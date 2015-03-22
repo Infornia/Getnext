@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mwilk <mwilk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/06 15:42:11 by mwilk             #+#    #+#             */
-/*   Updated: 2015/01/06 18:57:21 by mwilk            ###   ########.fr       */
+/*   Created: 2014/11/09 22:21:28 by mwilk             #+#    #+#             */
+/*   Updated: 2014/11/09 22:27:18 by mwilk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_realloc(void *ptr, size_t old, size_t size)
+char	*ft_strmapi(const char *s, char (*f)(unsigned int, char))
 {
-	void	*to_ret;
+	size_t	i;
+	char	*str;
 
-	if (ptr == NULL)
+	if (s == NULL || f == NULL)
 		return (NULL);
-	if (size == 0)
-		to_ret = (void *)ft_memalloc(sizeof(char));
-	else
-		to_ret = (void *)ft_memalloc(size);
-	if (to_ret == NULL)
-		return (NULL);
-	ft_bzero (to_ret, (size) ? size : sizeof(char));
-	if (old > size)
-		ft_memcpy(to_ret, ptr, (size) ? size : sizeof(char));
-	else
-		ft_memcpy(to_ret, ptr, old);
-	ft_memdel((void *)&ptr);
-	return (to_ret);
+	i = 0;
+	str = (char *)malloc((strlen(s) + 1) * sizeof(char));
+	while (s[i])
+	{
+		str[i] = f(i, s[i]);
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }

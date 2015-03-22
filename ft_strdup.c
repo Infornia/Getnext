@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mwilk <mwilk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/06 15:42:11 by mwilk             #+#    #+#             */
-/*   Updated: 2015/01/06 18:57:21 by mwilk            ###   ########.fr       */
+/*   Created: 2014/11/04 17:09:16 by mwilk             #+#    #+#             */
+/*   Updated: 2014/11/08 18:20:43 by mwilk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
-void	*ft_realloc(void *ptr, size_t old, size_t size)
+char	*ft_strdup(const char *s1)
 {
-	void	*to_ret;
+	char	*dup;
 
-	if (ptr == NULL)
+	dup = (char*)malloc(sizeof(char*) * (ft_strlen(s1) + 1));
+	if (s1 == NULL || dup == NULL)
 		return (NULL);
-	if (size == 0)
-		to_ret = (void *)ft_memalloc(sizeof(char));
-	else
-		to_ret = (void *)ft_memalloc(size);
-	if (to_ret == NULL)
-		return (NULL);
-	ft_bzero (to_ret, (size) ? size : sizeof(char));
-	if (old > size)
-		ft_memcpy(to_ret, ptr, (size) ? size : sizeof(char));
-	else
-		ft_memcpy(to_ret, ptr, old);
-	ft_memdel((void *)&ptr);
-	return (to_ret);
+	return (ft_strcpy(dup, s1));
 }

@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mwilk <mwilk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/06 15:42:11 by mwilk             #+#    #+#             */
-/*   Updated: 2015/01/06 18:57:21 by mwilk            ###   ########.fr       */
+/*   Created: 2014/11/09 17:52:05 by mwilk             #+#    #+#             */
+/*   Updated: 2014/11/12 20:49:40 by mwilk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_realloc(void *ptr, size_t old, size_t size)
+char	*ft_strstr(const char *s1, const char *s2)
 {
-	void	*to_ret;
+	size_t	i;
+	size_t	j;
 
-	if (ptr == NULL)
+	if (s1 == NULL || s2 == NULL)
 		return (NULL);
-	if (size == 0)
-		to_ret = (void *)ft_memalloc(sizeof(char));
-	else
-		to_ret = (void *)ft_memalloc(size);
-	if (to_ret == NULL)
-		return (NULL);
-	ft_bzero (to_ret, (size) ? size : sizeof(char));
-	if (old > size)
-		ft_memcpy(to_ret, ptr, (size) ? size : sizeof(char));
-	else
-		ft_memcpy(to_ret, ptr, old);
-	ft_memdel((void *)&ptr);
-	return (to_ret);
+	if (s2[0] == '\0')
+		return ((char *)s1);
+	i = 0;
+	while (s1[i])
+	{
+		j = 0;
+		while (s1[i + j] == s2[j])
+		{
+			j++;
+			if (!s2[j])
+				return ((char *)(s1 + i));
+		}
+		i++;
+	}
+	return (NULL);
 }
